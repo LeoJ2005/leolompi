@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Herramientas · leolompi</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-card: #181818;
+      --bg-card-hover: #202020;
+      --text-primary: #f0f0f0;
+      --text-secondary: #888888;
+      --accent-cyan: #00d4ff;
+      --border-color: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    ::selection {
+      background: var(--accent-cyan);
+      color: #000;
+    }
+
+    .neo-nav {
+      background: var(--bg-secondary);
+      border-bottom: 3px solid var(--border-color);
+      padding: 0.75rem 0;
+    }
+
+    .logo-svg {
+      height: 40px;
+      display: block;
+    }
+
+    .nav-link-neo {
+      color: var(--text-primary) !important;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.5rem 1rem !important;
+      border: 2px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .nav-link-neo:hover {
+      border-color: var(--border-color);
+      background: var(--bg-card);
+    }
+
+    .nav-link-neo.active {
+      border-color: var(--accent-cyan);
+      background: rgba(0,212,255,0.1);
+    }
+
+    .page-header {
+      border-bottom: 3px solid var(--border-color);
+      padding: 2.5rem 0 2rem;
+    }
+
+    .page-header h1 {
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      font-size: 2.5rem;
+    }
+
+    .page-header .breadcrumb-neo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .page-header .breadcrumb-neo a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .page-header .breadcrumb-neo a:hover {
+      color: var(--accent-cyan);
+      border-bottom-color: var(--accent-cyan);
+    }
+
+    .page-header .breadcrumb-neo .sep { margin: 0 0.5rem; }
+
+    .hero-search-wrap {
+      position: relative;
+      max-width: 500px;
+    }
+
+    .hero-search {
+      background: var(--bg-card);
+      border: 3px solid var(--border-color);
+      border-radius: 0;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      width: 100%;
+      box-shadow: 4px 4px 0px 0px rgba(255,255,255,0.08);
+    }
+
+    .hero-search:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 4px 4px 0px 0px var(--accent-cyan);
+      outline: none;
+      background: #1e1e1e;
+    }
+
+    .hero-search::placeholder { color: #555; }
+
+    .hero-search-btn {
+      background: var(--accent-cyan);
+      border: 3px solid var(--border-color);
+      border-left: none;
+      border-radius: 0;
+      color: #000;
+      font-weight: 700;
+      padding: 0 1.5rem;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      transition: all 0.1s ease;
+      white-space: nowrap;
+    }
+
+    .hero-search-btn:hover {
+      background: #00b8e6;
+      transform: translate(-2px, -2px);
+    }
+
+    .herramienta-card {
+      background: var(--bg-card);
+      border: 3px solid var(--border-color);
+      border-radius: 0;
+      padding: 1.5rem;
+      transition: all 0.2s ease;
+      box-shadow: 6px 6px 0px 0px rgba(255,255,255,0.06);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .herramienta-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0px 0px var(--accent-cyan);
+    }
+
+    .herramienta-icon {
+      font-size: 2rem;
+      color: var(--accent-cyan);
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+
+    .herramienta-card h4 {
+      font-weight: 800;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.4rem;
+    }
+
+    .herramienta-card p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+
+    .herramienta-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      border: 2px solid #444;
+      color: #888;
+      padding: 0.15rem 0.5rem;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .herramienta-link {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .herramienta-link:hover {
+      gap: 0.7rem;
+      border-bottom-color: var(--accent-cyan);
+    }
+
+    #search-state {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      min-height: 1.5rem;
+    }
+
+    .herramienta-doc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent-cyan);
+      text-decoration: none;
+      border: 2px solid var(--accent-cyan);
+      padding: 0.2rem 0.6rem;
+      transition: all 0.15s ease;
+      margin-top: 0.5rem;
+    }
+
+    .herramienta-doc-link:hover {
+      background: var(--accent-cyan);
+      color: #000;
+    }
+
+    .herramienta-hidden { display: none !important; }
+
+    .neo-footer {
+      background: var(--bg-secondary);
+      border-top: 3px solid var(--border-color);
+      padding: 1.5rem 0;
+      margin-top: auto;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .neo-footer .brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .neo-footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .neo-footer a:hover {
+      color: var(--accent-cyan);
+      border-bottom-color: var(--accent-cyan);
+    }
+
+    @media (max-width: 768px) {
+      .page-header h1 { font-size: 1.75rem; }
+      .hero-search-wrap { flex-direction: column; }
+      .hero-search-btn {
+        border-left: 3px solid var(--border-color);
+        border-top: none;
+        padding: 0.5rem;
+        width: 100%;
+      }
+      .logo-svg { height: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="neo-nav">
+    <div class="container d-flex align-items-center justify-content-between flex-wrap gap-2">
+      <a href="../index.html" class="text-decoration-none">
+        <svg class="logo-svg" viewBox="0 0 240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="28" font-family="'JetBrains Mono', monospace" font-size="16" fill="#888">~/$</text>
+          <text x="34" y="28" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" fill="#ff6b35">leolompi</text>
+          <rect x="154" y="5" width="4" height="24" fill="#ff6b35">
+            <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+          </rect>
+        </svg>
+      </a>
+      <div class="d-flex gap-1 flex-wrap">
+        <a href="../index.html" class="nav-link-neo text-decoration-none">Inicio</a>
+        <a href="101-retos.html" class="nav-link-neo text-decoration-none">101 Retos</a>
+        <a href="herramientas.html" class="nav-link-neo active text-decoration-none">Herramientas</a>
+        <a href="proyectos.html" class="nav-link-neo text-decoration-none">Proyectos</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb-neo mb-2">
+        <a href="../index.html">Inicio</a>
+        <span class="sep">→</span>
+        <span style="color:var(--accent-cyan);">Herramientas</span>
+      </div>
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+          <h1><span style="color:var(--accent-cyan);">Herramientas</span></h1>
+          <p class="text-secondary mb-0" style="font-size:0.95rem;">
+            Utilidades, automatizaciones y scripts prácticos para el día a día del desarrollador.
+          </p>
+        </div>
+        <div class="hero-search-wrap d-flex">
+          <input type="text" class="hero-search" id="searchInput" placeholder="Filtrar herramientas..." autocomplete="off">
+          <button class="hero-search-btn" id="searchBtn"><i class="bi bi-search"></i></button>
+        </div>
+      </div>
+      <div id="search-state" class="mt-2"></div>
+    </div>
+  </section>
+
+  <section class="py-4">
+    <div class="container">
+      <div class="row g-3" id="herramientasContainer">
+        <!-- Generado dinámicamente -->
+      </div>
+    </div>
+  </section>
+
+  <footer class="neo-footer">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <span>
+        <span class="brand">leolompi</span> · código abierto · aprendizaje continuo
+      </span>
+      <span>
+        <a href="https://github.com/leolompi" target="_blank" rel="noopener" class="me-3">
+          <i class="bi bi-github me-1"></i> GitHub
+        </a>
+        <a href="../index.html"><i class="bi bi-house me-1"></i> Inicio</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function () {
+      const herramientas = [
+        { name: 'Conversor de Unidades',   desc: 'Convierte entre unidades de longitud, peso, temperatura y volumen.',       icon: 'bi-arrows-expand',        tags: ['utilidad', 'conversor'], doc: '' },
+      ];
+
+      const container = document.getElementById('herramientasContainer');
+      const searchInput = document.getElementById('searchInput');
+      const searchBtn = document.getElementById('searchBtn');
+      const stateEl = document.getElementById('search-state');
+
+      function render (filter = '') {
+        const q = filter.toLowerCase().trim();
+        let html = '';
+        let visible = 0;
+
+        herramientas.forEach(h => {
+          const match = !q || h.name.toLowerCase().includes(q) || h.desc.toLowerCase().includes(q) || h.tags.some(t => t.includes(q));
+          if (!match) return;
+          visible++;
+
+          const docLink = h.doc
+            ? `<a href="${h.doc}" class="herramienta-doc-link" target="_blank"><i class="bi bi-file-earmark-code"></i> ${h.doc.split('/').pop()}</a>`
+            : '';
+
+          html += `
+            <div class="col-md-6 col-lg-4">
+              <div class="herramienta-card">
+                <div class="herramienta-icon"><i class="bi ${h.icon}"></i></div>
+                <h4>${h.name}</h4>
+                <p>${h.desc}</p>
+                <div class="d-flex gap-1 flex-wrap mb-2">
+                  ${h.tags.map(t => `<span class="herramienta-tag">${t}</span>`).join('')}
+                </div>
+                ${docLink}
+                <a href="#" class="herramienta-link" onclick="return false;">
+                  Usar <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html || '<div class="col-12"><div class="herramienta-card"><p class="mb-0" style="color:var(--text-secondary);">⛔ No hay herramientas que coincidan con tu búsqueda.</p></div></div>';
+
+        stateEl.textContent = q
+          ? `📁 ${visible} herramienta(s) encontrada(s) de ${herramientas.length}`
+          : `📦 ${herramientas.length} herramientas disponibles`;
+      }
+
+      searchInput.addEventListener('input', () => render(searchInput.value));
+      searchBtn.addEventListener('click', () => render(searchInput.value));
+      searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); render(searchInput.value); } });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
