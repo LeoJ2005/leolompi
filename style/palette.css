@@ -1,0 +1,97 @@
+
+
+:root{
+  /* fondos y texto (valores RGB para usar con rgb(var(--name))) */
+  --neo-bg: 28,30,33;         /* fondo principal, más oscuro */
+  --neo-surface: 46,48,52;    /* superficies / tarjetas */
+  --neo-shadow: 7,7,7;        /* sombra plana y fuerte */
+  --neo-text: 228,231,234;    /* texto claro */
+
+  /* colores acento (azul, verde, rosa/rojo) */
+  --neo-blue: 5,219,252;     /* azul brillante */
+  --neo-green: 0,224,0;       /* verde chillón */
+  --neo-pink: 255,31,110;    /* rosa fuerte */
+
+  /* extras */
+  --neo-accent: 255,205,0;    /* amarillo cálido (opcional) */
+  --neo-gap: 0.75rem;
+}
+
+/* Helpers base */
+
+.surface-neo {
+  background-color: rgb(var(--neo-surface));
+  color: rgb(var(--neo-text));
+  box-shadow: 8px 8px 0 rgb(var(--neo-shadow));
+}
+
+/* Texto de acento */
+.text-neo-blue { color: rgb(var(--neo-blue)); }
+.text-neo-green { color: rgb(var(--neo-green)); }
+.text-neo-pink { color: rgb(var(--neo-pink)); }
+
+/* Sombras contundentes */
+.neo-shadow { box-shadow: 8px 8px 0 rgb(var(--neo-shadow)); }
+
+/* Botones neobrutalistas */
+.btn-neo {
+  display: inline-block;
+  padding: .45rem .9rem;
+  color: rgb(var(--neo-bg));
+  background-color: rgb(var(--neo-blue));
+  /* quita borde blanco y bordes visibles */
+  border: none !important;
+  box-shadow: 6px 6px 0 rgb(var(--neo-shadow));
+  text-decoration: none;
+  transition: transform .06s ease, box-shadow .06s ease;
+}
+.btn-neo:hover, .btn-neo:focus {
+  transform: translate(-3px,-3px);
+  box-shadow: 10px 10px 0 rgb(var(--neo-shadow));
+  outline: none;
+}
+
+/* Variantes de botón */
+.btn-neo.green { background-color: rgb(var(--neo-green)); color: rgb(var(--neo-bg)); }
+.btn-neo.pink { background-color: rgb(var(--neo-pink)); color: rgb(var(--neo-bg)); }
+
+/* Tarjeta / card simple */
+.card-neo {
+  padding: 1rem;
+  margin: .5rem 0;
+  background-color: rgb(var(--neo-surface));
+  color: rgb(var(--neo-text));
+  box-shadow: 8px 8px 0 rgb(var(--neo-shadow));
+}
+
+/* Elementos de navegación, inputs y enlaces */
+.nav-neo {
+  background-color: rgb(var(--neo-surface));
+  box-shadow: 8px 8px 0 rgb(var(--neo-shadow));
+}
+
+.input-neo {
+  background-color: rgb(var(--neo-bg));
+  color: rgb(var(--neo-text));
+  padding: .4rem .6rem;
+}
+
+a.neo-link { color: rgb(var(--neo-blue)); text-decoration: none; }
+
+a.neo-link:hover { text-decoration: underline; }
+
+/* Utilities pequeños */
+.u-gap { gap: var(--neo-gap); }
+.u-center { display:flex; align-items:center; justify-content:center; }
+
+/* Ejemplo de uso rápido (clases para copiar):
+  <body class="bg-neo">
+    <header class="nav-neo p-3">...</header>
+    <main class="container">
+      <div class="card-neo">Tarjeta</div>
+      <a class="btn-neo" href="#">Acción</a>
+    </main>
+  </body>
+*/
+
+/* Fin de style/palette.css */
