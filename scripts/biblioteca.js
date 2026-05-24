@@ -38,51 +38,71 @@ function getRandomPalabra() {
 const BIBLIOTECA = {
     herramientas: [
         {cardTitle: "Calculadora", 
-            cardSubtitle: "operando con números", 
-            cardText: "Realiza operaciones matemáticas básicas como suma, resta, multiplicación y división.",    
+            cardSubtitle: "Operando con números",
+            cardText: "Realiza operaciones matemáticas básicas como suma, resta, multiplicación y división.",
+            textBtn: getRandomPalabra(),
+            cardLink: "calculadora.html"
+        },
+    ],
+    
+    retos: [
+        {cardTitle: "Calculadora", 
+            cardSubtitle: "Operando con números",
+            cardText: "Realiza operaciones matemáticas básicas como suma, resta, multiplicación y división.",
             textBtn: getRandomPalabra(),
             cardLink: "calculadora.html"
         },
     ],
 
-    retos: [
-
-    ],
 }
 
 document.getElementById("searchInput").addEventListener("input", () => cargarBiblioteca(document.getElementById("searchInput").value));
 document.addEventListener("DOMContentLoaded", cargarBiblioteca());
 
 function cargarBiblioteca(filter = "") {
-    
-    // convierte el filtro a minúsculas para comparación insensible a mayúsculas
-    document.getElementById("herramientas").innerHTML = ""
+    // Convertimos el filtro a minúsculas una sola vez fuera de los bucles para mejorar el rendimiento
+    const filtroMinuscula = filter.toLowerCase();
 
-    for (const herramienta of BIBLIOTECA.herramientas) {
-        
-        if(herramienta.cardTitle.toLowerCase().includes(filter) || filter === "") {
-            // si el título de la herramienta incluye el filtro, se muestra
-            console.log(22);
-            
-        document.getElementById("herramientas").insertAdjacentHTML('beforeend', `
-            <div class="card-neo" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title text-neo-blue">${herramienta.cardTitle}</h5>
-                    <h6 class="card-subtitle mb-2 text-neo-pink">${herramienta.cardSubtitle}</h6>
-                    <p class="card-text">${herramienta.cardText}</p>
-                    <a href="" class="btn-neo green">${herramienta.textBtn}</a>
-                </div>
-            </div>
-        `);
+    // Limpiamos los contenedores antes de renderizar
+    document.getElementById("herramientas").innerHTML = "";
+    document.getElementById("retos").innerHTML = "";
 
-        }
+    for (const nombreSeccion in BIBLIOTECA) {
+        const contenedorSeccion = document.getElementById(nombreSeccion);
+        if (!contenedorSeccion) continue;
+
+        const elementos = BIBLIOTECA[nombreSeccion];
+        let htmlTarjetas = "";
+
+        // Iteramos por cada tarjeta de la sección actual
+        elementos.forEach(item => {
+            // Comprobamos si el título coincide con el filtro (o si el filtro está vacío)
+            const coincideFiltro = item.cardTitle.toLowerCase().includes(filtroMinuscula);
+
+            if (filtroMinuscula === "" || coincideFiltro) {
+                // Usamos 'item' que es la variable correcta de este bucle
+                htmlTarjetas += `
+                    <div class="card-neo" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title text-neo-blue">${item.cardTitle}</h5>
+                            <h6 class="card-subtitle mb-2 text-neo-pink">${item.cardSubtitle}</h6>
+                            <p class="card-text">${item.cardText}</p>
+                            <a href="${item.cardLink}" class="btn-neo green">${item.textBtn}</a>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        // Inyectamos las tarjetas filtradas en su sección correspondiente
+        contenedorSeccion.innerHTML = htmlTarjetas;
     }
-
-
-
-    
-
 }
 
+function getScript(){
+    document.getElementById("main").querySelector("display") = 'none';
+    document.getElementById("spaceScript").querySelector("display") = 'solid';
 
 
+
+}
